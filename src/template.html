@@ -4,20 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Restaurant Page</title>
+    <title>Todo list</title>
 </head>
 <body>
     <header>
-        <nav>
-            <img src="images/dblogo.png" id="logo"  width="80px">
-            <div>
-                <button id="home" class="tab-btn active" >home</button>
-                <button id="menu" class="tab-btn">menu</button>
-                <button id="contact" class="tab-btn">contact</button>
-            </div>
+        
+        
+       
+            <h1 id="logo">Todo</h1> 
+            <button id="add-btn" class="tab-btn">
+                <p>Add New</p>
+                <img id="add-icon" src="icons/add-icon.svg">
+            </button>
+        </header>  
+   
+            <nav class="sidenav">
+           
+                <button id="today-btn" class="tab-btn active" >Today</button>
+                <button id="upcoming-btn" class="tab-btn">Upcoming</button>
+                <button id="anytime-btn" class="tab-btn">Anytime</button>
+            
+                <h2>Categories</h2>
+                <button id="personal-btn" class="tab-btn" ># Personal</button>
+                <button id="health-btn" class="tab-btn"># Health</button>
+                <button id="work-btn" class="tab-btn"># Work</button>
+                <button id="school-btn" class="tab-btn"># School</button>
+
            
         </nav>
-    </header>
-    <div id="content"></div>
+    
+        <div id="title-content">
+    <h2 class="section-title">All tasks</h2>
+    <div id="content">
+    </div>
+</div>
+
+    <dialog id="dialog"> 
+        <form method="dialog">
+            <h4 id="form-h4">Add a task</h4>
+            <label>
+                Task Name:
+                <input type="text" id="task-name" name="task-name" value="">
+            </label>
+
+            <label>
+                Due Date:
+                <input type="date" id="date" name="date" value="">
+            </label>
+    
+            <label>
+                Category:
+                <select id="category">
+                    <option value="Personal">Personal</option>
+                    <option value="Health">Health</option>
+                    <option value="Work">Work</option>
+                    <option value="School">School</option>
+                    </select> 
+            </label>
+
+            <label>
+                Priority level:
+            
+                <select id="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    </select> 
+            </label>
+            <div>
+            <button type="submit" id="submit">Save</button>
+            <button type="cancel" id="cancel">Cancel</button>
+            </div>
+            
+        </form>
+        
+    </dialog> 
+
+         
 </body>
 </html>
