@@ -1,7 +1,9 @@
-import { updateContent, updateCard, contentSection } from './content.js';
+import { updateContent, updateCard, filterUpdate,
+    currentView, currentBtn} from './content.js';
 
 
 const addBtn = document.getElementById("add-btn");
+export const allBtn = document.getElementById("all-btn");
 const dialogBox = document.getElementById("dialog");
 const saveBtn = document.getElementById("submit")
 const personalBtn = document.getElementById("personal-btn");
@@ -59,7 +61,8 @@ export function saveEditedValues() {
     selectedTask.category = updatedCategory;
     selectedTask.priority = updatedPriority
     isEditing = false;
-
+   
+  
     /*have her expain this too*/ 
     updateCard(selectedTaskCard, updatedName, updatedDate, updatedCategory, updatedPriority);
  
@@ -100,11 +103,12 @@ export function editTask(more, taskCard) {
      document.getElementById("form-h4").textContent = "Edit task"
      document.getElementById("task-name").value = selectedTask.name;
      document.getElementById("date").value = selectedTask.date;
-     console.log(selectedTask.date)
      document.getElementById("category").value = selectedTask.category;
      document.getElementById("priority").value = selectedTask.priority;
+   
 
         dialogBox.showModal()
+        console.log(selectedTask.category)
    
     })  
 
@@ -118,32 +122,32 @@ saveBtn.addEventListener("click", (e) => {
     e.preventDefault(); 
 
     if (isEditing === true) {
-       saveEditedValues();
-       isEditing = false;
-       console.log(isEditing)
+        saveEditedValues();
+
+        if (currentView && currentBtn) {
+            filterUpdate(currentView, currentBtn);
+        } else {
+            filterUpdate("All", allBtn);
+        }
+
+        isEditing = false;
+        alert(`Moved to ${category.value}`);
     } else {
         grabValues();
     }
+
     dialogBox.close();
 });
 
-function filterUpdate(categoryName) {
-
-    const categoryArray = myTasks.filter(t => t.category === categoryName)
-    contentSection.innerHTML = ""
-    sectionTitle.textContent = `Category: ${categoryName}`
-    categoryArray.forEach(task => {
-        updateContent(task);
-})
-}
 
 
 
 function filterTasks() {
-    personalBtn.addEventListener("click", () => filterUpdate("Personal"));
-    healthBtn.addEventListener("click", () => filterUpdate("Health"));
-    workBtn.addEventListener("click", () => filterUpdate("Work"));
-    schoolBtn.addEventListener("click", () => filterUpdate("School"));
+    allBtn.addEventListener("click", () => filterUpdate("All", allBtn))
+    personalBtn.addEventListener("click", () => filterUpdate("Personal", personalBtn))
+    healthBtn.addEventListener("click", () => filterUpdate("Health", healthBtn));
+    workBtn.addEventListener("click", () => filterUpdate("Work", workBtn));
+    schoolBtn.addEventListener("click", () => filterUpdate("School", schoolBtn));
    
 }
 

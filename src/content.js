@@ -5,15 +5,17 @@ import moreIcon from './icons/more.svg';
 import { myTasks } from './taskmanager.js';
 
 
+
+
 export const contentSection = document.getElementById("content");
+const sectionTitle = document.querySelector(".section-title")
+const tabBtns = document.querySelectorAll(".sidenav button")
+export let currentView;
+export let currentBtn;
 
 
 
-/*Add new task*/ 
-/*task name, due date, category, priority) */
-
-
-
+/*create a task*/
 export function updateContent(newTask) {
    
     const taskCard = document.createElement("button");
@@ -56,13 +58,12 @@ export function updateContent(newTask) {
     taskCard.appendChild(utilityDiv)
     utilityDiv.appendChild(trash)
     utilityDiv.appendChild(more)
-
-    console.log('Category VALUE:', newTask.category)
     
     updateCardColor(taskCard, newTask.category)
 
 }
-/*ask babe to explain this -- why does taskCard work if referencing selectTaskCard?*/
+
+/*reflect task edits*/
 export function updateCard(taskCard, updatedName, updatedDate, updatedCategory, updatedPriority) {
     
     let updatedTaskName = taskCard.querySelector('h4')
@@ -73,9 +74,13 @@ export function updateCard(taskCard, updatedName, updatedDate, updatedCategory, 
     taskElements[1].textContent = updatedCategory;
     taskElements[2].textContent = updatedPriority;
     updateCardColor(taskCard, updatedCategory)
+    
 
     
 }
+
+
+
 
 /*update taskcard bg color*/
 function updateCardColor(taskCard, category) {
@@ -90,4 +95,28 @@ function updateCardColor(taskCard, category) {
 }
 
 
+export function filterUpdate(categoryName, clickedBtn) {
+   currentView = categoryName;
+   currentBtn = clickedBtn; 
 
+    contentSection.innerHTML = "";
+
+
+    tabBtns.forEach(tab => tab.classList.remove("active"));
+    if (clickedBtn) {
+        clickedBtn.classList.add("active");
+    }
+
+    if (categoryName === "All") {
+        sectionTitle.textContent = "All Tasks"
+        myTasks.forEach(task => updateContent(task));
+        return;
+        }
+    
+  
+    const categoryArray = myTasks.filter(t => t.category === categoryName);
+    sectionTitle.textContent = `${categoryName}`
+    categoryArray.forEach(task => updateContent(task));
+   
+   
+}

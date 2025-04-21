@@ -88,7 +88,8 @@ form button {
 }
 
 
-button:active {
+button:active,
+.active {
     transform: scale(0.99);
 }
 
@@ -257,7 +258,9 @@ select {
     padding: 1rem;
 }
 
-
+#title-content {
+    padding: 1rem;
+}
 
 .task-card {
     font-family: Quicksand;
